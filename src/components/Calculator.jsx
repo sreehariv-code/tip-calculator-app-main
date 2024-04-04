@@ -49,6 +49,13 @@ function Calculator() {
     });
   }
 
+  function handleClick(value) {
+    setTip(value);
+  }
+
+  const totalAmount = Number(amount) + Number(amount) * (Number(tip) / 100);
+  console.log("No of People", Number(noOfPeople));
+
   return (
     <div className="md:w-[80%] lg:w-[60%] mx-auto  rounded-3xl shadow-[0_0_25px_-15px] shadow-neutral-grayish-cyan bg-white p-[3rem]   md:min-h-[inherit] overflow-hidden flex flex-col md:flex-row md:p-[20px] md:mt-9 min-h-screen gap-4">
       <section className="md:w-1/2  left  min-h-[200px] md:p-[2rem]">
@@ -62,7 +69,11 @@ function Calculator() {
           </p>
           <ul className="grid grid-cols-3 gap-4 mt-3">
             {tipList.map((tip) => (
-              <Chip key={tip.id} data-value={tip.value}>
+              <Chip
+                key={tip.id}
+                onKey={tip.id}
+                onSelect={() => handleClick(tip.value)}
+              >
                 {tip.value}%
               </Chip>
             ))}
@@ -100,7 +111,7 @@ function Calculator() {
               </span>
             </p>
             <p className="numerals text-[3rem] font-semibold text-primary-cyan ">
-              $4.27
+              ${totalAmount}
             </p>
           </div>
           <div className="flex items-center justify-between amount total">
