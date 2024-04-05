@@ -18,9 +18,15 @@ function Calculator() {
   const [noOfPeople, setNoOfPeople] = useState("");
   const [error, setError] = useState(false);
 
-  function isNumber(str) {
-    var regex = /^\d*\.?\d+$/;
-    return regex.test(str);
+  // function isNumber(str) {
+  //   var regex = /^\d*\.?\d+$/;
+  //   return regex.test(str);
+  // }
+
+  function isValidNumber(value) {
+    // Regular expression to match numbers with optional decimal places
+    const regex = /^\d*\.?\d*$/;
+    return regex.test(value);
   }
 
   function isZero(value) {
@@ -40,7 +46,7 @@ function Calculator() {
     const newValue = event.target.value;
     setFunction((prev) => {
       // Check if the new value is a valid number or an empty string
-      if (isNumber(newValue) || newValue === "") {
+      if (isValidNumber(newValue) || newValue === "") {
         return newValue; // Return the new value if it's a valid number or empty string
       } else {
         // If not a valid number or empty string, revert to the previous value
@@ -53,11 +59,20 @@ function Calculator() {
     setTip(value);
   }
 
+  function handleReset() {
+    setAmount("");
+    setTip("");
+    setNoOfPeople("");
+    setError(false);
+  }
+
   const totalAmount = Number(amount) + Number(amount) * (Number(tip) / 100);
-  console.log("No of People", Number(noOfPeople));
+  const roundedTotalAmount = totalAmount;
+  const tipAmount = Number(noOfPeople) && totalAmount / Number(noOfPeople);
+  const roundedTipAmount = tipAmount.toFixed(2); // Round to 2 decimal points
 
   return (
-    <div className="md:w-[80%] lg:w-[60%] mx-auto  rounded-3xl shadow-[0_0_25px_-15px] shadow-neutral-grayish-cyan bg-white p-[3rem]   md:min-h-[inherit] overflow-hidden flex flex-col md:flex-row md:p-[20px] md:mt-9 min-h-screen gap-4">
+    <div className="md:w-[80%] lg:w-[60%] mx-auto pt-[3rem] md:rounded-3xl shadow-[0_0_25px_-15px] rounded-t-[2rem] shadow-neutral-grayish-cyan bg-white p-[1rem]   md:min-h-[inherit] overflow-hidden flex flex-col md:flex-row md:p-[20px] md:mt-9 min-h-screen gap-4">
       <section className="md:w-1/2  left  min-h-[200px] md:p-[2rem]">
         <TextInput
           state={amount}
@@ -111,7 +126,7 @@ function Calculator() {
               </span>
             </p>
             <p className="numerals text-[3rem] font-semibold text-primary-cyan ">
-              ${totalAmount}
+              ${roundedTotalAmount}
             </p>
           </div>
           <div className="flex items-center justify-between amount total">
@@ -123,11 +138,14 @@ function Calculator() {
               </span>
             </p>
             <p className="numerals text-[3rem] font-semibold text-primary-cyan ">
-              $32.79
+              ${roundedTipAmount}
             </p>
           </div>
         </div>
-        <button className="py-3 font-semibold uppercase rounded-md text-neutral-very-dark-cyan bg-primary-cyan hover:bg-neutral-light-grayish-cyan">
+        <button
+          onClick={handleReset}
+          className="py-3 font-semibold uppercase rounded-md text-neutral-very-dark-cyan bg-primary-cyan hover:bg-neutral-light-grayish-cyan"
+        >
           Reset
         </button>
       </section>
