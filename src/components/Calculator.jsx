@@ -66,16 +66,18 @@ function Calculator() {
     setError(false);
   }
 
-  const totalAmount = Number(amount) + Number(amount) * (Number(tip) / 100);
+  const totalAmount =
+    Number(amount) + Number(amount) * (Number(tip) / 100) || "0.00";
   const roundedTotalAmount = totalAmount;
   const tipAmount = Number(noOfPeople) && totalAmount / Number(noOfPeople);
   const roundedTipAmount = tipAmount.toFixed(2); // Round to 2 decimal points
 
   return (
-    <div className="md:w-[80%] lg:w-[60%] mx-auto pt-[3rem] md:rounded-3xl shadow-[0_0_25px_-15px] rounded-t-[2rem] shadow-neutral-grayish-cyan bg-white p-[1rem]   md:min-h-[inherit] overflow-hidden flex flex-col md:flex-row md:p-[20px] md:mt-9 min-h-screen gap-4">
+    <div className="md:w-[80%] lg:w-[60%] mx-auto pt-[3rem] md:rounded-3xl shadow-[0_0_25px_-15px] rounded-t-[2rem] shadow-neutral-grayish-cyan bg-white p-[1rem] md:min-h-[inherit] overflow-hidden flex flex-col md:flex-row md:p-[20px] md:mt-9 min-h-screen gap-4 justify-between">
       <section className="md:w-1/2  left  min-h-[200px] md:p-[2rem]">
         <TextInput
           state={amount}
+          labelText="Bill"
           onChange={(event) => handleAmount(event, setAmount)}
         />
         <div className="mt-6 tip-section">
@@ -115,36 +117,36 @@ function Calculator() {
           </div>
         </div>
       </section>
-      <section className="md:w-1/2 bg-neutral-very-dark-cyan right min-h-[200px]  rounded-[1.25rem] p-10 flex flex-col justify-between">
+      <section className="md:w-1/2 bg-neutral-very-dark-cyan right min-h-[300px]  rounded-[1.25rem] pt-10 p-5 md:p-10 flex flex-col justify-between flex-1">
         <div className="flex flex-col gap-5 wrapper">
           <div className="flex items-center justify-between amount tip">
-            <p className="font-semibold text-neutral-very-light-grayish-cyan text-[20px] ">
+            <p className="font-semibold text-neutral-very-light-grayish-cyan text-[5vw] md:text-[20px] ">
               Tip Amount
               <br />
-              <span className="font-normal text-neutral-light-grayish-cyan text-[15px]">
+              <span className="font-normal text-neutral-light-grayish-cyan text-[4vw] md:text-[15px]">
                 / person
               </span>
             </p>
-            <p className="numerals text-[3rem] font-semibold text-primary-cyan ">
+            <p className="numerals text-[10vw] md:text-[3rem] font-semibold text-primary-cyan ">
               ${roundedTotalAmount}
             </p>
           </div>
           <div className="flex items-center justify-between amount total">
-            <p className="font-semibold text-neutral-very-light-grayish-cyan text-[20px] ">
+            <p className="font-semibold text-neutral-very-light-grayish-cyan text-[5vw] md:text-[20px] ">
               Total
               <br />
-              <span className="font-normal text-neutral-light-grayish-cyan text-[15px]">
+              <span className="font-normal text-neutral-light-grayish-cyan  text-[4vw] md:text-[15px]">
                 / person
               </span>
             </p>
-            <p className="numerals text-[3rem] font-semibold text-primary-cyan ">
+            <p className="numerals text-[10vw] md:text-[3rem]  font-semibold text-primary-cyan ">
               ${roundedTipAmount}
             </p>
           </div>
         </div>
         <button
           onClick={handleReset}
-          className="py-3 font-semibold uppercase rounded-md text-neutral-very-dark-cyan bg-primary-cyan hover:bg-neutral-light-grayish-cyan"
+          className="mt-7 md:mt-0 py-3 font-semibold uppercase rounded-md text-neutral-very-dark-cyan bg-primary-cyan hover:bg-neutral-light-grayish-cyan"
         >
           Reset
         </button>
