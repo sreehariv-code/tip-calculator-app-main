@@ -35,7 +35,7 @@ function Calculator() {
 
   function handlePeople(event) {
     setError(false);
-    if (isZero(Number(event.target.value))) {
+    if (isZero(parseInt(event.target.value))) {
       setError(true);
       return;
     }
